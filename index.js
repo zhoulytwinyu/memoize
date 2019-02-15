@@ -12,6 +12,37 @@ export function memoize_all(fn) {
   }
 }
 
+function memoize(fn,capacity=1000) {
+  let cache = {};
+  let cachePopularity = {};
+  let size=0;
+  return function(){
+    let argumentsJSON = JSON.stringify(arguments);
+    if (argumentsJSON in cache) {
+      cachePopularity[argumentsJSON]+=1;
+      return cache[argumentsJSON];
+    }
+    else {
+      // Manage cache when oversized
+      if (size>=2*capacity) {
+        let toRemove = getLeastPopularCache(cachePopularity,capacity);
+        for (let tmp of toRemove) {
+          delete cache[tmp];
+          delete cachePopularity[tmp];
+        }
+        for (key in cachePopularity) {
+          cachePopularity[key]=0;
+        }
+        size = capacity;
+      }
+      size+=1;
+      cache[argumentsJSON] = fn(...arguments);
+      cachePopularity[argumentsJSON] = 1;
+      return cache[argumentsJSON];
+    }
+  }
+}
+
 export function memoize_one(fn) {
   let cachedArgs = undefined;
   let cachedRes = undefined;
@@ -44,4 +75,21 @@ function testArrayShallowEqual(array1,array2) {
     }
   }
   return true;
+}
+
+function getLeastPopularCache(cachePopularityLUT,limit) {
+  let cacheArray = Object.entries(cachePopularityLUT);
+  return cacheArray.sort((a,b)=>{if (a[1]>b[1]) {
+                                    return 1;
+                                  }
+                                  else if (a[1]<b[1]) {
+                                    return -1;
+                                  }
+                                  else {
+                                    return 0;
+                                  }
+                                  }
+                          )
+                    .map( row=> row[0] )
+                    .slice(0,limit);
 }
