@@ -12,7 +12,7 @@ export function memoize_all(fn) {
   }
 }
 
-function memoize(fn,capacity=1000) {
+export function memoize(fn,capacity=1000) {
   let cache = {};
   let cachePopularity = {};
   let size=0;
