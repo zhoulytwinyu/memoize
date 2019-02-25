@@ -23,6 +23,7 @@ export function memoize(fn,capacity=1000) {
       return cache[argumentsJSON];
     }
     else {
+      console.log("here");
       // Manage cache when oversized
       if (size>=2*capacity) {
         let toRemove = getLeastPopularCache(cachePopularity,capacity);
@@ -33,11 +34,12 @@ export function memoize(fn,capacity=1000) {
         for (key in cachePopularity) {
           cachePopularity[key]=0;
         }
-        size = capacity;
+        size = cache.length;
       }
       size+=1;
       cache[argumentsJSON] = fn(...arguments);
       cachePopularity[argumentsJSON] = 1;
+      console.log("and here");
       return cache[argumentsJSON];
     }
   }
