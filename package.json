@@ -2,9 +2,9 @@
   "name": "memoize",
   "version": "1.0.0",
   "description": "simple momeization funtions",
-  "main": "index.js",
+  "main": "dist/memoize.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dist": "export NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src --out-dir dist --copy-files"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,23 @@
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/zhoulytwinyu/memoize-js/issues"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "stage-0"
+    ]
   },
   "homepage": "https://github.com/zhoulytwinyu/memoize-js#readme"
 }
