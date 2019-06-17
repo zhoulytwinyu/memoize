@@ -1,6 +1,6 @@
 {
   "name": "memoize",
-  "version": "1.0.0",
+  "version": "0.0.9",
   "description": "simple momeization funtions",
   "main": "dist/memoize.js",
   "scripts": {
