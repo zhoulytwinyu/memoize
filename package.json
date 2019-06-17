@@ -1,8 +1,8 @@
 {
   "name": "memoize",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "simple momeization funtions",
-  "main": "dist/memoize.js",
+  "main": "dist/index.js",
   "scripts": {
     "dist": "export NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src --out-dir dist --copy-files"
   },
